@@ -9,7 +9,7 @@ namespace divya21.Utilities
     class Wait
     {
         //reusable function for wait
-        public static void WaitforWebElementToExist(IWebDriver driver, string attributevalue,string attribute, int SecondsToWait)
+        public static void WaitForWebElementToExist(IWebDriver driver, string attributevalue,string attribute, int SecondsToWait)
         {
             var wait = new WebDriverWait(driver, new TimeSpan(0, 0, SecondsToWait));
             if (attribute == "XPath")
@@ -35,3 +35,5 @@ namespace divya21.Utilities
         }
     }
 }
+
+

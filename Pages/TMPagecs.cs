@@ -1,7 +1,7 @@
 ﻿using divya21.Utilities;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 
@@ -16,12 +16,12 @@ namespace divya21.Pages
             //click create new button
             IWebElement createbutton = driver.FindElement(By.XPath("//*[@id='container']/p/a"));
             createbutton.Click();
-            Wait.WaitforWebElementToExist(driver, "//*[@id='TimeMaterialEditForm']/div/div[1]/div/span[1]/span/span[1]","XPath",2);
+            Wait.WaitForWebElementToExist(driver, "//*[@id='TimeMaterialEditForm']/div/div[1]/div/span[1]/span/span[1]","XPath",5);
 
             //identify time from the dropdown list
             IWebElement material = driver.FindElement(By.XPath("//*[@id='TimeMaterialEditForm']/div/div[1]/div/span[1]/span/span[1]"));
             material.Click();
-            Wait.WaitforWebElementToExist(driver, "//*[@id='TypeCode_listbox']/li[2]", "XPath", 5);
+            Wait.WaitForWebElementToExist(driver, "//*[@id='TypeCode_listbox']/li[2]", "XPath", 5);
 
 
             IWebElement time = driver.FindElement(By.XPath("//*[@id='TypeCode_listbox']/li[2]"));
@@ -45,31 +45,25 @@ namespace divya21.Pages
 
 
 
-            //click save button
-
-            IWebElement savebutton = driver.FindElement(By.Id("SaveButton"));
-            savebutton.Click();
-            Wait.WaitforWebElementToExist(driver, "//*[@id='tmsGrid']/div[4]/a[4]/span", "XPath", 10);
+            //Identify save button and click and save
+            IWebElement saveButton = driver.FindElement(By.Id("SaveButton"));
+            saveButton.Click();
+            Thread.Sleep(2500);
+           
 
 
             //click go to last page
 
-            IWebElement lastpage = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[4]/a[4]/span"));
-            lastpage.Click();
-            Wait.WaitforWebElementToExist(driver, "//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[1]", "XPath", 10);
+            IWebElement lastPage = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[4]/a[4]/span"));
+            lastPage.Click();
+            Wait.WaitForWebElementToExist(driver, "//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[1]", "XPath", 6);
 
 
 
             //check if record is pesent in the table as 
             IWebElement actualCode = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[1]"));
-            if (actualCode.Text == "May25")
-            {
-                Console.WriteLine("Time record created successfully, test passed");
-            }
-            else
-            {
-                Console.WriteLine("Test Failed");
-            }
+            
+            Assert.That(actualCode.Text == "May25", "actual code and expectted code did not match");
         }
         //Edit TM
         public void EditTM(IWebDriver driver)
@@ -79,7 +73,7 @@ namespace divya21.Pages
 
             IWebElement editbutton = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[5]/a[1]"));
             editbutton.Click();
-            Wait.WaitforWebElementToExist(driver, "Code", "ID", 5);
+            Wait.WaitForWebElementToExist(driver, "Code", "ID", 5);
 
             //Edit code
             IWebElement ecode = driver.FindElement(By.Id("Code"));
@@ -93,33 +87,31 @@ namespace divya21.Pages
             IWebElement edescription = driver.FindElement(By.Id("Description"));
             edescription.Clear();
             edescription.SendKeys("255");
-            Wait.WaitforWebElementToExist(driver, "SaveButton", "ID", 5);
+            Wait.WaitForWebElementToExist(driver, "SaveButton", "ID", 5);
 
             //save changes
 
             IWebElement esave = driver.FindElement(By.Id("SaveButton"));
             esave.Click();
-
-            Wait.WaitforWebElementToExist(driver, "//*[@id='tmsGrid']/div[4]/a[4]/span", "XPath", 5);
+            //Thread.Sleep(2500);
+            Wait.WaitForWebElementToExist(driver, "//*[@id='tmsGrid']/div[4]/a[4]/span", "XPath", 5);
 
             //click go to last page
 
             IWebElement elast = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[4]/a[4]/span"));
             elast.Click();
-            Wait.WaitforWebElementToExist(driver, "//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[3]", "XPath", 2);
-
-
+            Thread.Sleep(1000);
 
             //check if it is edited successfully
 
             IWebElement actualDescription = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[3]"));
             if (actualDescription.Text == "255")
             {
-                Console.WriteLine("Time record edited successfully, test passed");
+                Assert.Pass("Time record edited successfully, test passed");
             }
             else
             {
-                Console.WriteLine("Test Failed");
+                Assert.Fail("Test Failed");
             }
         }
         //Delete TM
@@ -135,7 +127,7 @@ namespace divya21.Pages
             IWebElement lastp = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[4]/a[4]/span"));
             lastp.Click();
 
-            Wait.WaitforWebElementToExist(driver, "//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[3]", "XPath", 2);
+            Wait.WaitForWebElementToExist(driver, "//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[3]", "XPath", 20);
 
 
             IWebElement lastdescription = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[3]"));
@@ -147,13 +139,13 @@ namespace divya21.Pages
 
             // check if it is deleted successfully
 
-            if (lastdescription.Text == "255" && lastcode.Text == "25")
+            if (lastdescription.Text !="255" && lastcode.Text != "25")
             {
-                Console.WriteLine("Test fail");
+                Assert.Pass("Test pass");
             }
             else
             {
-                Console.WriteLine("Test pass");
+                Assert.Fail("Test fail");
             }
         }
 
