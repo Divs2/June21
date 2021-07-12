@@ -93,7 +93,7 @@ namespace divya21.Pages
 
             IWebElement esave = driver.FindElement(By.Id("SaveButton"));
             esave.Click();
-            //Thread.Sleep(2500);
+            
             Wait.WaitForWebElementToExist(driver, "//*[@id='tmsGrid']/div[4]/a[4]/span", "XPath", 5);
 
             //click go to last page
