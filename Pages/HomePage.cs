@@ -17,5 +17,14 @@ namespace divya21.Pages
             driver.FindElement(By.XPath("/html/body/div[3]/div/div/ul/li[5]/ul/li[3]/a")).Click();
             Thread.Sleep(1000);
         }
+        //naigate to employees page
+         public void GOTOEmployespage(IWebDriver driver)
+        {
+            driver.FindElement(By.XPath("/html/body/div[3]/div/div/ul/li[5]/a")).Click();
+            Thread.Sleep(2000);
+            driver.FindElement(By.XPath("/html/body/div[3]/div/div/ul/li[5]/ul/li[2]/a")).Click();
+            Thread.Sleep(1500);
+
+        }
     }
 }

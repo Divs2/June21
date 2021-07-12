@@ -6,25 +6,23 @@ using OpenQA.Selenium.Chrome;
 using System;
 using System.Threading;
 
-namespace divya21
+namespace divya21.Test
 {
     [TestFixture]
     [Parallelizable]
-    class Program : CommonDriver
+    class EmployeeTestSuite : CommonDriver
     {
         
-
-      
         [Test]
-        public void CreteTMTest()
+        public void CreteemployeeTest()
         {
             //Object for Homepage
             HomePage homeobj = new HomePage();
-            homeobj.GOTOTMPages(driver);
+            homeobj.GOTOEmployespage(driver);
 
-            //Object for TMPage
-            TMPagecs tmobj = new TMPagecs();
-            tmobj.CreateTM(driver);
+            //Object for emPage
+            Employeespage emobj = new Employeespage();
+            emobj.createemployee(driver);
 
         }
         [Test]
@@ -32,27 +30,23 @@ namespace divya21
         {
             //Object for Homepage
             HomePage homeobj = new HomePage();
-            homeobj.GOTOTMPages(driver);
+            homeobj.GOTOEmployespage(driver);
+            //Object for eMPage
 
-            //Object for TMPage
-            TMPagecs tmobj = new TMPagecs();
-            tmobj.EditTM(driver);
-
+            Employeespage emobj = new Employeespage();
+            emobj.Editemployee(driver);
         }
         [Test]
         public void DeleteTMTest()
         {
             //Object for Homepage
             HomePage homeobj = new HomePage();
-            homeobj.GOTOTMPages(driver);
-
+            homeobj.GOTOEmployespage(driver);
             //Object for TMPage
-            TMPagecs tmobj = new TMPagecs();
-
-
-            tmobj.DeleteTM(driver);
-
+            Employeespage emobj = new Employeespage();
+            emobj.Deleteemployee(driver);
         }
-       
     }
-}
+    
+    }
+
